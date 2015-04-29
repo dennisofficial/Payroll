@@ -8,6 +8,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		new Thread(new ThreadMain()).start();
+		new Thread(new ThreadInput()).start();
 	}
 
 }
