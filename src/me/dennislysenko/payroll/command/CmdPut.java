@@ -1,4 +1,4 @@
-package me.dennislysenko.payroll.engine;
+package me.dennislysenko.payroll.command;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class CmdPut extends Command {
 	}
 	
 	@Override
-	public void execute() {
+	public void execute(String[] args) {
 		ThreadInput.stopThread();
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
