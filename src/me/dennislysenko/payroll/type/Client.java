@@ -6,28 +6,22 @@ public class Client {
 	private String LABEL;
 	private String[] ALIAS;
 	
-	public Integer getId() {
-		return ID;
+	public Client(Integer id, String label, String[] alias) {
+		ID = id;
+		LABEL = label;
+		ALIAS = alias;
 	}
 	
-	public void setId(Integer id) {
-		ID = id;
+	public Integer getId() {
+		return ID;
 	}
 	
 	public String getLabel() {
 		return LABEL;
 	}	
 	
-	public void setLabel(String label) {
-		LABEL = label;
-	}
-	
 	public String[] getAlias() {
 		return ALIAS;
-	}
-	
-	public void setAlias(String[] alias) {
-		ALIAS = alias;
 	}
 	
 }
