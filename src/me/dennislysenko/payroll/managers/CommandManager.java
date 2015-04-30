@@ -1,4 +1,4 @@
-package me.dennislysenko.payroll.engine;
+package me.dennislysenko.payroll.managers;
 
 import java.util.ArrayList;
 import java.util.List;
