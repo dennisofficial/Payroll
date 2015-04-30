@@ -1,11 +1,22 @@
 package me.dennislysenko.payroll.type;
 
+import java.util.HashMap;
+
 public class PutAction {
 
+	private static HashMap<Integer, PutAction> actions = new HashMap<Integer, PutAction>();
+	
 	public static final PutAction EMAIL = new PutAction(0, "E-Mail");
 	public static final PutAction QB = new PutAction(1, "QB");
 	public static final PutAction PAID = new PutAction(2, "Paid");
 	public static final PutAction TASK = new PutAction(3, "Task");
+
+	public static void setupActions() {
+		actions.put(0, EMAIL);
+		actions.put(1, QB);
+		actions.put(2, PAID);
+		actions.put(3, TASK);
+	}
 
 	public Integer ID;
 	public String LABEL;
@@ -21,6 +32,10 @@ public class PutAction {
 	
 	public Integer getID() {
 		return ID;
+	}
+	
+	public static PutAction getAction(Integer id) {
+		return actions.get(id);
 	}
 	
 }
