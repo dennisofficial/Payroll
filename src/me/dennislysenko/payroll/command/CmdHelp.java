@@ -12,7 +12,7 @@ public class CmdHelp extends Command {
 	}
 	
 	@Override
-	public void execute() {
+	public void execute(String[] args) {
 		for (Command command : CommandManager.getCommands()) {
 			System.out.println(command.getUsage() + " - " + command.getDescription());
 		}
