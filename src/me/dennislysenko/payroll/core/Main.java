@@ -1,5 +1,7 @@
 package me.dennislysenko.payroll.core;
 
+import java.io.File;
+
 public class Main {
 
 	public static final Integer FPS = 20;
@@ -9,6 +11,10 @@ public class Main {
 	public static void main(String[] args) {
 		new Thread(new ThreadMain()).start();
 		new Thread(new ThreadInput()).start();
+	}
+
+	public static File getDataFolder() {
+		return new File("PayRoll/");
 	}
 
 }
