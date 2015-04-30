@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import me.dennislysenko.payroll.engine.CommandManager;
+import me.dennislysenko.payroll.managers.CommandManager;
 
 public class ThreadInput implements Runnable {
 

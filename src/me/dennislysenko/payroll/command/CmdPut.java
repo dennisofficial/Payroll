@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import me.dennislysenko.payroll.api.Table;
 import me.dennislysenko.payroll.core.ThreadInput;
-import me.dennislysenko.payroll.gfx.Table;
 import me.dennislysenko.payroll.type.Command;
 import me.dennislysenko.payroll.type.PutAction;
 
