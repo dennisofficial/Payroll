@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.dennislysenko.payroll.command.CmdHelp;
+import me.dennislysenko.payroll.command.CmdPaycheck;
+import me.dennislysenko.payroll.command.CmdPut;
 import me.dennislysenko.payroll.type.Command;
 
 public class CommandManager {
@@ -13,6 +15,7 @@ public class CommandManager {
 	public static void registerCommands() {
 		commands.add(new CmdHelp());
 		commands.add(new CmdPut());
+		commands.add(new CmdPaycheck());
 	}
 	
 	public static List<Command> getCommands() {
@@ -21,10 +24,11 @@ public class CommandManager {
 	
 	public static void execute(String input) {
 		String label = input.split(" ")[0];
+		String[] args = input.replaceFirst(label, "").trim().split(" ");
 		Boolean found = false;
 		for (Command command : commands) {
 			if (command.getLabel().equalsIgnoreCase(label)) {
-				command.execute();
+				command.execute(args);
 				found = true;
 			}
 		}

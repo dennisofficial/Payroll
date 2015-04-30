@@ -6,7 +6,7 @@ public abstract class Command {
 	public String USAGE;
 	public String DESCRIPTION;
 	
-	public abstract void execute();
+	public abstract void execute(String[] args);
 
 	public String getLabel() {
 		return LABEL;
