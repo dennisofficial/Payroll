@@ -1,4 +1,4 @@
-package me.dennislysenko.payroll.gfx;
+package me.dennislysenko.payroll.api;
 
 import java.util.ArrayList;
 import java.util.List;
