@@ -24,7 +24,13 @@ public class CommandManager {
 	
 	public static void execute(String input) {
 		String label = input.split(" ")[0];
-		String[] args = input.replaceFirst(label, "").trim().split(" ");
+		String[] args;
+		if (input.trim().split(" ").length == 1) {
+			args = new String[0];
+		}
+		else {
+			args = input.replaceFirst(label, "").trim().split(" ");
+		}
 		Boolean found = false;
 		for (Command command : commands) {
 			if (command.getLabel().equalsIgnoreCase(label)) {
