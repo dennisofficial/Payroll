@@ -70,12 +70,13 @@ public class CmdPut extends Command {
 						System.out.println("Action not found!");
 					}
 				}
-				String[] h = {"Building", "Reference", "Action"};
+				String[] h = {"Date", "Building", "Reference", "Action"};
 				Table table = new Table(h);
 				TimeStamp time = new TimeStamp(TimeStamp.getTimeStamp());
 				table.addData(0, time.getMonth() + "/" + time.getDay());
-				table.addData(1, reference);
-				table.addData(2, PutAction.getAction(actionId).getLabel());
+				table.addData(1, building.getLabel());
+				table.addData(2, reference);
+				table.addData(3, PutAction.getAction(actionId).getLabel());
 				table.setMarginRight(1);
 				table.print();
 				DataWriter.addData(building, reference, PutAction.getAction(action));
