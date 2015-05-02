@@ -79,7 +79,7 @@ public class CmdPut extends Command {
 				table.addData(3, PutAction.getAction(actionId).getLabel());
 				table.setMarginRight(1);
 				table.print();
-				DataWriter.addData(building, reference, PutAction.getAction(action));
+				DataWriter.addData(building, reference.replace(":", ";"), PutAction.getAction(action));
 				break;
 			}
 		} catch (IOException e) {
