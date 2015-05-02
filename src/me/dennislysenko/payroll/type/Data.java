@@ -17,7 +17,9 @@ public class Data {
 	
 	public Data(Long timestamp, Integer paycheck) {
 		TIMESTAMP = timestamp;
-		
+		PAYCHECK = paycheck;
+		REFERENCE = "PAYCHECK";
+		ACTION = PutAction.PAYCHECK;
 	}
 	
 	public Long getTimestamp() {
@@ -34,6 +36,10 @@ public class Data {
 	
 	public PutAction getAction() {
 		return ACTION;
+	}
+	
+	public Integer getPayCheck() {
+		return PAYCHECK;
 	}
 	
 }
