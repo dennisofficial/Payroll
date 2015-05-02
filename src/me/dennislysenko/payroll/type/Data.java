@@ -6,12 +6,18 @@ public class Data {
 	Client CLIENT;
 	String REFERENCE;
 	PutAction ACTION;
+	Integer PAYCHECK;
 	
 	public Data(Long timestamp, Client building, String reference, PutAction action) {
 		TIMESTAMP = timestamp;
 		CLIENT = building;
 		REFERENCE = reference;
 		ACTION = action;
+	}
+	
+	public Data(Long timestamp, Integer paycheck) {
+		TIMESTAMP = timestamp;
+		
 	}
 	
 	public Long getTimestamp() {
