@@ -1,5 +1,6 @@
 package me.dennislysenko.payroll.command;
 
+import me.dennislysenko.payroll.api.DataWriter;
 import me.dennislysenko.payroll.type.Command;
 
 public class CmdPaycheck extends Command {
@@ -19,6 +20,8 @@ public class CmdPaycheck extends Command {
 		else {
 			try {
 				paid = new Integer(args[0]);
+				DataWriter.addData(paid);
+				System.out.println("Recorded $" + paid + " to database!");
 			} catch (NumberFormatException ex) {
 				System.out.println("Please enter a number only!");
 			}
