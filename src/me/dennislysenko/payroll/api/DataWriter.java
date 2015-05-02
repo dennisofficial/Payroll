@@ -34,6 +34,7 @@ public class DataWriter {
 				writer.println(line2);
 			}
 			writer.println(System.currentTimeMillis() + ":" + building.getLabel() + ":" + reference + ":" + action.getLabel());
+			writer.println(System.currentTimeMillis() + ":" + building.getId() + ":" + reference + ":" + action.getID());
 			writer.close();
 		} catch (IOException ex) {
 			ex.printStackTrace();
