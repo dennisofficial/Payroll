@@ -18,8 +18,19 @@ public class DataWriter {
 
 	public static void addData(Client building, String reference, PutAction action) {
 		try {
+			BufferedReader reader = new BufferedReader(new FileReader(data));
+			List<String> lines = new ArrayList<String>();
+			String line;
+			while ((line = reader.readLine()) != null) {
+				if (!line.isEmpty()) {
+					lines.add(line);
+				}
+			}
+			reader.close();
 			PrintWriter writer = new PrintWriter(data);
-			writeData(writer);
+			for (String line2 : lines) {
+				writer.print(line2);
+			}
 			writer.println(building.getLabel() + ":" + reference + ":" + action.getLabel());
 			writer.close();
 		} catch (IOException ex) {
@@ -29,18 +40,7 @@ public class DataWriter {
 	
 	public static void addData(Integer paycheck) {
 		try {
-			PrintWriter writer = new PrintWriter(data);
-			writeData(writer);
-			writer.println("paycheck:" + paycheck);
-			writer.close();
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-	
-	private static void writeData(PrintWriter writer) {
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(data));	
+			BufferedReader reader = new BufferedReader(new FileReader(data));
 			List<String> lines = new ArrayList<String>();
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -48,13 +48,16 @@ public class DataWriter {
 					lines.add(line);
 				}
 			}
-			for (String line1 : lines) {
-				writer.println(line1);
-			}
 			reader.close();
+			PrintWriter writer = new PrintWriter(data);
+			for (String line2 : lines) {
+				writer.print(line2);
+			}
+			writer.println("paycheck:" + paycheck);
+			writer.close();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 	}
-
+	
 }
