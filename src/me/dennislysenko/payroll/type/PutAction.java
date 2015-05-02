@@ -38,4 +38,14 @@ public class PutAction {
 		return actions.get(id);
 	}
 	
+	public static PutAction getAction(String action) {
+		PutAction output = null;
+		for (PutAction action1 : actions.values()) {
+			if (action1.getLabel().equalsIgnoreCase(action)) {
+				output = action1;
+			}
+		}
+		return output;
+	}
+	
 }
