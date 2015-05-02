@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.dennislysenko.payroll.core.Main;
+import me.dennislysenko.payroll.managers.ClientManager;
 import me.dennislysenko.payroll.type.Client;
+import me.dennislysenko.payroll.type.Data;
 import me.dennislysenko.payroll.type.PutAction;
 
 public class DataWriter {
@@ -29,9 +31,9 @@ public class DataWriter {
 			reader.close();
 			PrintWriter writer = new PrintWriter(data);
 			for (String line2 : lines) {
-				writer.print(line2);
+				writer.println(line2);
 			}
-			writer.println(building.getLabel() + ":" + reference + ":" + action.getLabel());
+			writer.println(System.currentTimeMillis() + ":" + building.getLabel() + ":" + reference + ":" + action.getLabel());
 			writer.close();
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -51,13 +53,31 @@ public class DataWriter {
 			reader.close();
 			PrintWriter writer = new PrintWriter(data);
 			for (String line2 : lines) {
-				writer.print(line2);
+				writer.println(line2);
 			}
-			writer.println("paycheck:" + paycheck);
+			writer.println(System.currentTimeMillis() + ":paycheck:" + paycheck);
 			writer.close();
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	public static List<Data> getData() {
+		List<Data> output = new ArrayList<Data>();
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(data));
+			String line;
+			while ((line = reader.readLine()) != null) {
+				if (!line.isEmpty()) {
+					String[] vars = line.split(":");
+					output.add(new Data(new Long(vars[0]), ClientManager.getClient(vars[1]), vars[2], PutAction.getAction(vars[3])));
+				}
+			}
+			reader.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return output;
 	}
 	
 }
