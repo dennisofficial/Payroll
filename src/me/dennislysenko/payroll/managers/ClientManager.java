@@ -73,19 +73,29 @@ public class ClientManager {
 	}
 
 	public static Client getClient(String client) {
-		Client client1 = null;
-		for (Client client2 : clients) {
+		Client output = null;
+		for (Client client1 : clients) {
 			List<String> keys = new ArrayList<String>();
-			keys.add(client2.getLabel().toUpperCase());
-			for (String alias : client2.getAlias()) {
+			keys.add(client1.getLabel().toUpperCase());
+			for (String alias : client1.getAlias()) {
 				keys.add(alias.toUpperCase());
 			}
 			if (keys.contains(client.toUpperCase())) {
-				client1 = client2;
+				output = client1;
 				break;
 			}
 		}
-		return client1;
+		return output;
+	}
+	
+	public static Client getClient(Integer id) {
+		Client output = null;
+		for (Client client : clients) {
+			if (client.getId() == id) {
+				output = client;
+			}
+		}
+		return output;
 	}
 	
 	private static Integer getRowNum() {
