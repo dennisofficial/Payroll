@@ -33,7 +33,6 @@ public class DataWriter {
 			for (String line2 : lines) {
 				writer.println(line2);
 			}
-			writer.println(System.currentTimeMillis() + ":" + building.getLabel() + ":" + reference + ":" + action.getLabel());
 			writer.println(System.currentTimeMillis() + ":" + building.getId() + ":" + reference + ":" + action.getID());
 			writer.close();
 		} catch (IOException ex) {
@@ -56,7 +55,7 @@ public class DataWriter {
 			for (String line2 : lines) {
 				writer.println(line2);
 			}
-			writer.println(System.currentTimeMillis() + ":paycheck:" + paycheck);
+			writer.println(System.currentTimeMillis() + ":" + paycheck);
 			writer.close();
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -71,7 +70,12 @@ public class DataWriter {
 			while ((line = reader.readLine()) != null) {
 				if (!line.isEmpty()) {
 					String[] vars = line.split(":");
-					output.add(new Data(new Long(vars[0]), ClientManager.getClient(vars[1]), vars[2], PutAction.getAction(vars[3])));
+					if (vars.length == 4) {
+						output.add(new Data(new Long(vars[0]), ClientManager.getClient(new Integer(vars[1])), vars[2].replace(";", ":"), PutAction.getAction(new Integer(vars[3]))));
+					}
+					else {
+						output.add(new Data(new Long(vars[0]), new Integer(vars[1])));
+					}
 				}
 			}
 			reader.close();
