@@ -10,12 +10,14 @@ public class PutAction {
 	public static final PutAction QB = new PutAction(1, "QB");
 	public static final PutAction PAID = new PutAction(2, "Paid");
 	public static final PutAction TASK = new PutAction(3, "Task");
+	public static final PutAction PAYCHECK = new PutAction(4, "PayCheck");
 
 	public static void setupActions() {
 		actions.put(0, EMAIL);
 		actions.put(1, QB);
 		actions.put(2, PAID);
 		actions.put(3, TASK);
+		actions.put(4, PAYCHECK);
 	}
 
 	public Integer ID;
