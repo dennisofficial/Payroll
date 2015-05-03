@@ -1,5 +1,7 @@
 package me.dennislysenko.payroll.type;
 
+import java.util.Calendar;
+
 public class Data {
 
 	Long TIMESTAMP;
@@ -40,6 +42,12 @@ public class Data {
 	
 	public Integer getPayCheck() {
 		return PAYCHECK;
+	}
+	
+	public Calendar getCalendar() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTimeInMillis(TIMESTAMP);
+		return cal;
 	}
 	
 }
