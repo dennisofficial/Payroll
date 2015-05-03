@@ -24,6 +24,34 @@ public class ThreadMain implements Runnable {
 		PutAction.setupActions();
 		ClientManager.loadClients();
 		
+		printMOTD();
+	}
+	
+	private void setupFiles() {
+		// Make sure to go in order!
+		List<File> folders = new ArrayList<File>();
+		folders.add(Main.getDataFolder());
+		for (File folder : folders) {
+			if (!folder.exists()) {
+				folder.mkdir();
+			}
+		}
+		
+		List<File> files = new ArrayList<File>();
+		files.add(new File(Main.getDataFolder(), "clients.dat"));
+		files.add(new File(Main.getDataFolder(), "actions.dat"));
+		for (File file : files) {
+			if (!file.exists()) {
+				try {
+					file.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	private void printMOTD() {
 		Integer paycheck = 0;
 		Integer monthaction = 0;
 		
@@ -64,30 +92,6 @@ public class ThreadMain implements Runnable {
 		t.addData(1, "$" + paycheck);
 		t.addData(2, monthaction.toString());
 		t.print();
-	}
-	
-	private void setupFiles() {
-		// Make sure to go in order!
-		List<File> folders = new ArrayList<File>();
-		folders.add(Main.getDataFolder());
-		for (File folder : folders) {
-			if (!folder.exists()) {
-				folder.mkdir();
-			}
-		}
-		
-		List<File> files = new ArrayList<File>();
-		files.add(new File(Main.getDataFolder(), "clients.dat"));
-		files.add(new File(Main.getDataFolder(), "actions.dat"));
-		for (File file : files) {
-			if (!file.exists()) {
-				try {
-					file.createNewFile();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 
 }
