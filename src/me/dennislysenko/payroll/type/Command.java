@@ -6,7 +6,7 @@ import java.util.List;
 import me.dennislysenko.payroll.command.CmdClient;
 import me.dennislysenko.payroll.command.CmdHelp;
 import me.dennislysenko.payroll.command.CmdPaycheck;
-import me.dennislysenko.payroll.command.CmdPut;
+import me.dennislysenko.payroll.command.CmdAction;
 import me.dennislysenko.payroll.command.CmdStop;
 
 public abstract class Command {
@@ -33,7 +33,7 @@ public abstract class Command {
 	
 	public static void registerCommands() {
 		commands.add(new CmdHelp());
-		commands.add(new CmdPut());
+		commands.add(new CmdAction());
 		commands.add(new CmdPaycheck());
 		commands.add(new CmdClient());
 		commands.add(new CmdStop());

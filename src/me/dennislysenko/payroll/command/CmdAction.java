@@ -12,7 +12,7 @@ import me.dennislysenko.payroll.type.Command;
 import me.dennislysenko.payroll.type.Data;
 import me.dennislysenko.payroll.type.PutAction;
 
-public class CmdPut extends Command {
+public class CmdAction extends Command {
 
 	private Client building;
 	private String action;
@@ -20,7 +20,7 @@ public class CmdPut extends Command {
 	private Integer actionId;
 	private Integer amount;
 
-	public CmdPut() {
+	public CmdAction() {
 		LABEL = "PUT";
 		USAGE = "/put";
 		DESCRIPTION = "Adds an action into the pay roll.";
