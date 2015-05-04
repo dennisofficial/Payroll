@@ -3,6 +3,7 @@ package me.dennislysenko.payroll.type;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.dennislysenko.payroll.command.CmdClear;
 import me.dennislysenko.payroll.command.CmdClient;
 import me.dennislysenko.payroll.command.CmdHelp;
 import me.dennislysenko.payroll.command.CmdPaycheck;
@@ -37,6 +38,7 @@ public abstract class Command {
 		commands.add(new CmdPaycheck());
 		commands.add(new CmdClient());
 		commands.add(new CmdStop());
+		commands.add(new CmdClear());
 	}
 	
 	public static List<Command> getCommands() {
