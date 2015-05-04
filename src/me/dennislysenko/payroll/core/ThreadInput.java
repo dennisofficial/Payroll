@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import me.dennislysenko.payroll.managers.CommandManager;
+import me.dennislysenko.payroll.type.Command;
 
 public class ThreadInput implements Runnable {
 
@@ -19,7 +19,7 @@ public class ThreadInput implements Runnable {
 				if (line.startsWith("/")) {
 					line = line.substring(1);
 				}
-				CommandManager.execute(line);
+				Command.execute(line);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

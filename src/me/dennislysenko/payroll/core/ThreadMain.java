@@ -8,7 +8,7 @@ import java.util.List;
 
 import me.dennislysenko.payroll.api.DataWriter;
 import me.dennislysenko.payroll.api.Table;
-import me.dennislysenko.payroll.managers.ClientManager;
+import me.dennislysenko.payroll.type.Client;
 import me.dennislysenko.payroll.type.Command;
 import me.dennislysenko.payroll.type.Data;
 import me.dennislysenko.payroll.type.PutAction;
@@ -22,6 +22,7 @@ public class ThreadMain implements Runnable {
 		
 		Command.registerCommands();
 		PutAction.setupActions();
+		Client.loadClients();
 		
 		printMOTD();
 	}

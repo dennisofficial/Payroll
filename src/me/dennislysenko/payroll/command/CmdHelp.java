@@ -1,6 +1,5 @@
 package me.dennislysenko.payroll.command;
 
-import me.dennislysenko.payroll.managers.CommandManager;
 import me.dennislysenko.payroll.type.Command;
 
 public class CmdHelp extends Command {
@@ -13,7 +12,7 @@ public class CmdHelp extends Command {
 	
 	@Override
 	public void execute(String[] args) {
-		for (Command command : CommandManager.getCommands()) {
+		for (Command command : Command.getCommands()) {
 			System.out.println(command.getUsage() + " - " + command.getDescription());
 		}
 	}

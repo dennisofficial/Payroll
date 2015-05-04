@@ -7,9 +7,7 @@ import java.util.Calendar;
 
 import me.dennislysenko.payroll.api.DataWriter;
 import me.dennislysenko.payroll.api.Table;
-import me.dennislysenko.payroll.api.TimeStamp;
 import me.dennislysenko.payroll.core.ThreadInput;
-import me.dennislysenko.payroll.managers.ClientManager;
 import me.dennislysenko.payroll.type.Client;
 import me.dennislysenko.payroll.type.Command;
 import me.dennislysenko.payroll.type.PutAction;
