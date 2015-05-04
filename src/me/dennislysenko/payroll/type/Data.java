@@ -20,7 +20,7 @@ public class Data {
 
 	private static File data = new File(Main.getDataFolder(), "actions.dat");
 
-	public static void addData(Client building, String reference, PutAction action, Integer amount) {
+	public static void addData(Client client, Integer amount, String reference, PutAction action) {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(data));
 			List<String> lines = new ArrayList<String>();
@@ -35,7 +35,7 @@ public class Data {
 			for (String line2 : lines) {
 				writer.println(line2);
 			}
-			writer.println(System.currentTimeMillis() + ":" + building.getId() + ":" + reference + ":" + action.getID());
+			writer.println(System.currentTimeMillis() + ":" + amount + ":" + client.getId() + ":" + reference + ":" + action.getID());
 			writer.close();
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -73,10 +73,15 @@ public class Data {
 				if (!line.isEmpty()) {
 					String[] vars = line.split(":");
 					if (vars.length == 5) {
-						output.add(new Data(new Long(vars[0]), Client.getClient(new Integer(vars[1])), vars[2].replace(";", ":"), PutAction.getAction(new Integer(vars[3])), new Integer(vars[4])));
+						output.add(new Data(new Long(vars[0]), // Time Stamp
+								new Integer(vars[1]), // Amount
+								Client.getClient(new Integer(vars[2])), // Client
+								vars[3].replace(";", ":"), // Description
+								PutAction.getAction(new Integer(vars[4])))); // Action
 					}
 					else {
-						output.add(new Data(new Long(vars[0]), new Integer(vars[1])));
+						output.add(new Data(new Long(vars[0]), // Time Stamp
+								new Integer(vars[1]))); // Amount
 					}
 				}
 			}
@@ -87,9 +92,9 @@ public class Data {
 		return output;
 	}
 	
-	public Data(Long timestamp, Client building, String reference, PutAction action, Integer amount) {
+	public Data(Long timestamp, Integer amount, Client client, String reference, PutAction action) {
 		TIMESTAMP = timestamp;
-		CLIENT = building;
+		CLIENT = client;
 		REFERENCE = reference;
 		ACTION = action;
 		AMOUNT = amount;
