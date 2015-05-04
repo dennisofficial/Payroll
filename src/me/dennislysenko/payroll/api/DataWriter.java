@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.dennislysenko.payroll.core.Main;
-import me.dennislysenko.payroll.managers.ClientManager;
 import me.dennislysenko.payroll.type.Client;
 import me.dennislysenko.payroll.type.Data;
 import me.dennislysenko.payroll.type.PutAction;
@@ -18,7 +17,7 @@ public class DataWriter {
 
 	private static File data = new File(Main.getDataFolder(), "actions.dat");
 
-	public static void addData(Client building, String reference, PutAction action) {
+	public static void addData(Client building, String reference, PutAction action, Integer amount) {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(data));
 			List<String> lines = new ArrayList<String>();
@@ -70,8 +69,8 @@ public class DataWriter {
 			while ((line = reader.readLine()) != null) {
 				if (!line.isEmpty()) {
 					String[] vars = line.split(":");
-					if (vars.length == 4) {
-						output.add(new Data(new Long(vars[0]), ClientManager.getClient(new Integer(vars[1])), vars[2].replace(";", ":"), PutAction.getAction(new Integer(vars[3]))));
+					if (vars.length == 5) {
+						output.add(new Data(new Long(vars[0]), Client.getClient(new Integer(vars[1])), vars[2].replace(";", ":"), PutAction.getAction(new Integer(vars[3])), new Integer(vars[4])));
 					}
 					else {
 						output.add(new Data(new Long(vars[0]), new Integer(vars[1])));
