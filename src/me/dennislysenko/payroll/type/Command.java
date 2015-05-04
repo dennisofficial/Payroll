@@ -7,6 +7,7 @@ import me.dennislysenko.payroll.command.CmdClient;
 import me.dennislysenko.payroll.command.CmdHelp;
 import me.dennislysenko.payroll.command.CmdPaycheck;
 import me.dennislysenko.payroll.command.CmdPut;
+import me.dennislysenko.payroll.command.CmdStop;
 
 public abstract class Command {
 
@@ -35,6 +36,7 @@ public abstract class Command {
 		commands.add(new CmdPut());
 		commands.add(new CmdPaycheck());
 		commands.add(new CmdClient());
+		commands.add(new CmdStop());
 	}
 	
 	public static List<Command> getCommands() {
