@@ -14,29 +14,53 @@ import me.dennislysenko.payroll.type.PutAction;
 
 public class CmdAction extends Command {
 
-	private Client building;
+	private Client client;
 	private String action;
 	private String reference;
 	private Integer actionId;
 	private Integer amount;
 
 	public CmdAction() {
-		LABEL = "PUT";
-		USAGE = "/put";
+		LABEL = "ACTION";
+		USAGE = "/action";
 		DESCRIPTION = "Adds an action into the pay roll.";
 	}
 
 	@Override
 	public void execute(String[] args) {
+		if (args.length == 0) {
+			help(args);
+		}
+		else {
+			if (args[0].equalsIgnoreCase("help")) {
+				help(args);
+			}
+			else if (args[0].equalsIgnoreCase("add")) {
+				add(args);
+			}
+			else if (args[0].equalsIgnoreCase("list")) {
+				list(args);
+			}
+		}
+	}
+	
+	private void help(String[] args) {
+		System.out.println("Action Manager - Help");
+		System.out.println("/action help\tShows this screen.");
+		System.out.println("/action add\tAdds an action.");
+		System.out.println("/action list [days]\tLists actions");
+	}
+	
+	private void add(String[] args) {
 		ThreadInput.stopThread();
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
 			while (true) {
-				System.out.print("Building: ");
-				building = Client.getClient(reader.readLine());
-				if (building == null) {
-					System.out.println(building + " does not exist! Type: /client");
+				System.out.print("Client: ");
+				client = Client.getClient(reader.readLine());
+				if (client == null) {
+					System.out.println(client + " does not exist! Type: /client");
 					break;
 				}
 				while (true) {
@@ -85,23 +109,47 @@ public class CmdAction extends Command {
 						System.out.println("Please enter a number!");
 					}
 				}
-				String[] h = {"Date", "Building", "Reference", "Action", "Amount"};
-				Table table = new Table(h);
+				String[] h = {"Date", "Client", "Reference", "Action", "Amount"};
+				Table t = new Table(h);
 				Calendar cal = Calendar.getInstance();
-				table.addData(0, (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH));
-				table.addData(1, building.getLabel());
-				table.addData(2, reference);
-				table.addData(3, PutAction.getAction(actionId).getLabel());
-				table.addData(4, amount.toString());
-				table.setMarginRight(1);
-				table.print();
-				Data.addData(building, reference.replace(":", ";"), PutAction.getAction(action), amount);
+				t.addData(0, (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH));
+				t.addData(1, client.getLabel());
+				t.addData(2, reference);
+				t.addData(3, PutAction.getAction(actionId).getLabel());
+				t.addData(4, amount.toString());
+				t.setMarginRight(1);
+				t.print();
+				Data.addData(client, amount, reference.replace(":", ";"), PutAction.getAction(action));
 				break;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		ThreadInput.startThread();
+	}
+	
+	private void list(String[] args) {
+		if (args.length == 1) {
+			String[] h = {"Date", "Amount", "Client", "Description", "Action"};
+			Table t = new Table(h);
+			t.setMarginRight(1);
+			for (Data data : Data.getData()) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTimeInMillis(data.getTimestamp());
+				
+				t.addData(0, (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH));
+				t.addData(1, "$" + data.getAmount());
+				if (data.getAction().equals(PutAction.PAYCHECK)) {
+					t.addData(2, "");
+				}
+				else {
+					t.addData(2, data.getClient().getLabel());
+				}
+				t.addData(3, data.getReference());
+				t.addData(4, data.getAction().getLabel());
+			}
+			t.print();
+		}
 	}
 
 }
