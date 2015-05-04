@@ -60,7 +60,7 @@ public abstract class Command {
 			}
 		}
 		if (!found) {
-			System.out.println("Command not found. Type: /help");
+			System.out.println("Unknown Command: /help");
 		}
 	}
 	
