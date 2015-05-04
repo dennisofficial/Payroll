@@ -44,6 +44,7 @@ public class CmdClient extends Command {
 		System.out.println("Client Manager - Help");
 		System.out.println("/client help\tShows this screen.");
 		System.out.println("/client add\tAdds a new client.");
+		System.out.println("/client list\tShows all clients.");
 	}
 
 	private void add(String[] args) {
@@ -73,7 +74,7 @@ public class CmdClient extends Command {
 					}
 					alias.add(input.toUpperCase());
 				}
-				
+
 				String[] h = {"ID", "Label", "Alias"};
 				Table t = new Table(h);
 				t.setMarginRight(1);
@@ -88,6 +89,23 @@ public class CmdClient extends Command {
 			}
 		}
 		ThreadInput.startThread();
+	}
+	
+	private void list(String[] args) {
+		String[] h = {"ID", "Client", "Alias"};
+		Table t = new Table(h);
+		t.setMarginRight(1);
+		for (Client client : Client.getClients()) {
+			t.addData(0, client.getId().toString());
+			t.addData(1, client.getLabel());
+			String[] alias = client.getAlias();
+			List<String> alias1 = new ArrayList<String>();
+			for (String alias2 : alias) {
+				alias1.add(alias2);
+			}
+			t.addData(2, alias1.toString());
+		}
+		t.print();
 	}
 	
 }
