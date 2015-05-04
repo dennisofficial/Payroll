@@ -9,7 +9,7 @@ import java.util.List;
 import me.dennislysenko.payroll.api.DataWriter;
 import me.dennislysenko.payroll.api.Table;
 import me.dennislysenko.payroll.managers.ClientManager;
-import me.dennislysenko.payroll.managers.CommandManager;
+import me.dennislysenko.payroll.type.Command;
 import me.dennislysenko.payroll.type.Data;
 import me.dennislysenko.payroll.type.PutAction;
 
@@ -20,9 +20,8 @@ public class ThreadMain implements Runnable {
 		setupFiles();
 		System.out.println(Main.TITLE + " v" + Main.VERSION);
 		
-		CommandManager.registerCommands();
+		Command.registerCommands();
 		PutAction.setupActions();
-		ClientManager.loadClients();
 		
 		printMOTD();
 	}
@@ -58,10 +57,10 @@ public class ThreadMain implements Runnable {
 		List<Data> datas = DataWriter.getData();
 		for (Data data : datas) {
 			if (data.getAction().equals(PutAction.PAYCHECK)) {
-				paycheck -= data.getPayCheck();
+				paycheck -= data.getAmount();
 			}
 			else {
-				paycheck += 3;
+				paycheck += data.getAmount();
 				
 				// 1 variable are Current, and 2 variable are Data time stamp.
 				Calendar cal1 = Calendar.getInstance();
