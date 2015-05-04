@@ -58,7 +58,7 @@ public class Client {
 		}
 	}
 
-	public static void addClient(String label, String[] alias) {
+	public static void addClient(Integer id, String label, String[] alias) {
 		List<String> alias2 = new ArrayList<String>();
 		for (String alias1 : alias) {
 			alias2.add(alias1);
@@ -77,9 +77,9 @@ public class Client {
 			for (String line1 : lines) {
 				writer.println(line1);
 			}
-			Integer id = getRowNum();
-			writer.println(id + ":" + label + ":" + alias2);
+			writer.println(id.toString() + ":" + label + ":" + alias2);
 			writer.close();
+			clients.add(new Client(id, label, alias));
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -119,7 +119,7 @@ public class Client {
 		return output;
 	}
 	
-	private static Integer getRowNum() {
+	public static Integer getRowNum() {
 		Integer output = 0;
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(data));
