@@ -8,18 +8,19 @@ public class Data {
 	Client CLIENT;
 	String REFERENCE;
 	PutAction ACTION;
-	Integer PAYCHECK;
+	Integer AMOUNT;
 	
-	public Data(Long timestamp, Client building, String reference, PutAction action) {
+	public Data(Long timestamp, Client building, String reference, PutAction action, Integer amount) {
 		TIMESTAMP = timestamp;
 		CLIENT = building;
 		REFERENCE = reference;
 		ACTION = action;
+		AMOUNT = amount;
 	}
 	
-	public Data(Long timestamp, Integer paycheck) {
+	public Data(Long timestamp, Integer amount) {
 		TIMESTAMP = timestamp;
-		PAYCHECK = paycheck;
+		AMOUNT = amount;
 		REFERENCE = "PAYCHECK";
 		ACTION = PutAction.PAYCHECK;
 	}
@@ -39,15 +40,9 @@ public class Data {
 	public PutAction getAction() {
 		return ACTION;
 	}
-	
-	public Integer getPayCheck() {
-		return PAYCHECK;
-	}
-	
-	public Calendar getCalendar() {
-		Calendar cal = Calendar.getInstance();
-		cal.setTimeInMillis(TIMESTAMP);
-		return cal;
+
+	public Integer getAmount() {
+		return AMOUNT;
 	}
 	
 }
