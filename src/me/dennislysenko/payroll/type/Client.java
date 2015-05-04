@@ -48,8 +48,13 @@ public class Client {
 					Integer id = new Integer(vars[0]);
 					String label = vars[1];
 					String[] alias = vars[2].replace("[", "").replace("]", "").split(",");
+					String[] alias2 = new String[alias.length];
+
+					for (int i = 0; i < alias.length; i++) {
+						alias2[i] = alias[i].trim();
+					}
 					
-					clients.add(new Client(id, label, alias));
+					clients.add(new Client(id, label, alias2));
 				}
 			}
 			reader.close();
@@ -131,6 +136,10 @@ public class Client {
 			ex.printStackTrace();
 		}
 		return output;
+	}
+
+	public static List<Client> getClients() {
+		return clients;
 	}
 	
 }
