@@ -31,6 +31,12 @@ public class CmdClient extends Command {
 			else if (args[0].equalsIgnoreCase("add")) {
 				add(args);
 			}
+			else if (args[0].equalsIgnoreCase("list")) {
+				list(args);
+			}
+			else {
+				System.out.println("Unknown Sub Command: /client help");
+			}
 		}
 	}
 
