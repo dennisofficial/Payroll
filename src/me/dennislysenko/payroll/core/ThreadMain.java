@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import me.dennislysenko.payroll.api.DataWriter;
 import me.dennislysenko.payroll.api.Table;
 import me.dennislysenko.payroll.type.Client;
 import me.dennislysenko.payroll.type.Command;
@@ -55,7 +54,7 @@ public class ThreadMain implements Runnable {
 		Integer paycheck = 0;
 		Integer monthaction = 0;
 		
-		List<Data> datas = DataWriter.getData();
+		List<Data> datas = Data.getData();
 		for (Data data : datas) {
 			if (data.getAction().equals(PutAction.PAYCHECK)) {
 				paycheck -= data.getAmount();

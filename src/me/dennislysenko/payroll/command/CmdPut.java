@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Calendar;
 
-import me.dennislysenko.payroll.api.DataWriter;
 import me.dennislysenko.payroll.api.Table;
 import me.dennislysenko.payroll.core.ThreadInput;
 import me.dennislysenko.payroll.type.Client;
 import me.dennislysenko.payroll.type.Command;
+import me.dennislysenko.payroll.type.Data;
 import me.dennislysenko.payroll.type.PutAction;
 
 public class CmdPut extends Command {
@@ -95,7 +95,7 @@ public class CmdPut extends Command {
 				table.addData(4, amount.toString());
 				table.setMarginRight(1);
 				table.print();
-				DataWriter.addData(building, reference.replace(":", ";"), PutAction.getAction(action), amount);
+				Data.addData(building, reference.replace(":", ";"), PutAction.getAction(action), amount);
 				break;
 			}
 		} catch (IOException e) {
