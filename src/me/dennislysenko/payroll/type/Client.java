@@ -112,7 +112,7 @@ public class Client {
 	public static Client getClient(Integer id) {
 		Client output = null;
 		for (Client client : clients) {
-			if (client.getId() == id) {
+			if (client.getId().toString().equalsIgnoreCase(id.toString())) {
 				output = client;
 			}
 		}
