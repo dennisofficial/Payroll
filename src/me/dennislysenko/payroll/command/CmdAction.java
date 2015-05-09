@@ -77,7 +77,7 @@ public class CmdAction extends Command {
 					}
 					else if (action.equalsIgnoreCase(PutAction.PAID.getLabel())) {
 						System.out.print("Invoice: ");
-						reference = reader.readLine();
+						reference = reader.readLine().toUpperCase();
 						actionId = PutAction.PAID.getID();
 						break;
 					}
