@@ -53,6 +53,7 @@ public class ThreadMain implements Runnable {
 	private void printMOTD() {
 		Integer paycheck = 0;
 		Integer monthaction = 0;
+		Integer monthlyrate = 0;
 		
 		List<Data> datas = Data.getData();
 		for (Data data : datas) {
@@ -61,6 +62,7 @@ public class ThreadMain implements Runnable {
 			}
 			else {
 				paycheck += data.getAmount();
+				monthlyrate += data.getAmount();
 				
 				// 1 variable are Current, and 2 variable are Data time stamp.
 				Calendar cal1 = Calendar.getInstance();
@@ -80,16 +82,19 @@ public class ThreadMain implements Runnable {
 			}
 		}
 		
+		monthlyrate /= 12;
+		
 		Calendar cal = Calendar.getInstance();
 		Integer month = cal.get(Calendar.MONTH) + 1;
 		Integer day = cal.get(Calendar.DAY_OF_MONTH);
 		
-		String[] h = {"Date", "Pay Check", "Month Actions"};
+		String[] h = {"Date", "Pay Check", "Month Actions", "Monthly Rate"};
 		Table t = new Table(h);
 		t.setMarginRight(1);
 		t.addData(0, month + "/" + day);
 		t.addData(1, "$" + paycheck);
 		t.addData(2, monthaction.toString());
+		t.addData(3, "$" + monthlyrate.toString());
 		t.print();
 	}
 
