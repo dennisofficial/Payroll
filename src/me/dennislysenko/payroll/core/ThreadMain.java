@@ -65,7 +65,7 @@ public class ThreadMain implements Runnable {
 				// 1 variable are Current, and 2 variable are Data time stamp.
 				Calendar cal1 = Calendar.getInstance();
 				Calendar cal2 = Calendar.getInstance();
-				cal2.setTimeInMillis(System.currentTimeMillis());
+				cal2.setTimeInMillis(data.getTimestamp());
 				
 				Integer year1 = cal1.get(Calendar.YEAR);
 				Integer year2 = cal2.get(Calendar.YEAR);
