@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import me.dennislysenko.payroll.api.Table;
@@ -93,11 +94,23 @@ public class CmdClient extends Command {
 	
 	private void list(String[] args) {
 		String[] h = {"ID", "Client", "Alias"};
+		List<String> labels = new ArrayList<String>();
+		List<Client> clientorder = new ArrayList<Client>();
+		for (Client client : Client.getClients()) {
+			labels.add(client.getLabel());
+		}
+		Collections.sort(labels);
+		for (String label : labels) {
+			clientorder.add(Client.getClient(label));
+		}
+		
 		Table t = new Table(h);
 		t.setMarginRight(1);
-		for (Client client : Client.getClients()) {
+		for (Client client : clientorder) {
 			t.addData(0, client.getId().toString());
 			t.addData(1, client.getLabel());
+			
+			// String[] to List<?> Converter
 			String[] alias = client.getAlias();
 			List<String> alias1 = new ArrayList<String>();
 			for (String alias2 : alias) {
