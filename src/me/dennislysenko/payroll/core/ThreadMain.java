@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import me.dennislysenko.payroll.api.Table;
@@ -55,6 +56,7 @@ public class ThreadMain implements Runnable {
 		Integer monthaction = 0;
 		Integer monthlyrate = 0;
 		
+		HashMap<Integer, Integer> monthlyhash = new HashMap<Integer, Integer>();
 		List<Data> datas = Data.getData();
 		for (Data data : datas) {
 			if (data.getAction().equals(PutAction.PAYCHECK)) {
@@ -62,7 +64,12 @@ public class ThreadMain implements Runnable {
 			}
 			else {
 				paycheck += data.getAmount();
-				monthlyrate += data.getAmount();
+				Calendar cal = Calendar.getInstance();
+				cal.setTimeInMillis(data.getTimestamp());
+				Integer timeid = new Integer(cal.get(Calendar.YEAR) + (cal.get(Calendar.MONTH) + 1));
+
+				monthlyhash.put(timeid, data.getAmount());
+				// FINISH CHECK IF TIMEID EXISTS
 				
 				// 1 variable are Current, and 2 variable are Data time stamp.
 				Calendar cal1 = Calendar.getInstance();
@@ -82,7 +89,7 @@ public class ThreadMain implements Runnable {
 			}
 		}
 		
-		monthlyrate /= 12;
+		// ADD MONTHLY CALCULATOR
 		
 		Calendar cal = Calendar.getInstance();
 		Integer month = cal.get(Calendar.MONTH) + 1;
