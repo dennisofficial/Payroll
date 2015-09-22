@@ -3,7 +3,9 @@ package me.dennislysenko.payroll.command;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import me.dennislysenko.payroll.api.Table;
 import me.dennislysenko.payroll.core.ThreadInput;
@@ -51,7 +53,7 @@ public class CmdAction extends Command {
 		System.out.println("Action Manager - Help");
 		System.out.println("/action help\tShows this screen.");
 		System.out.println("/action add\tAdds an action.");
-		System.out.println("/action list [days]\tLists actions");
+		System.out.println("/action list [filter]\tLists actions");
 	}
 	
 	private void add(String[] args) {
@@ -132,27 +134,32 @@ public class CmdAction extends Command {
 	}
 	
 	private void list(String[] args) {
+		List<Data> datas = new ArrayList<Data>();
 		if (args.length == 1) {
-			String[] h = {"Date", "Amount", "Client", "Description", "Action"};
-			Table t = new Table(h);
-			t.setMarginRight(1);
-			for (Data data : Data.getData()) {
-				Calendar cal = Calendar.getInstance();
-				cal.setTimeInMillis(data.getTimestamp());
-				
-				t.addData(0, (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH));
-				t.addData(1, "$" + data.getAmount());
-				if (data.getAction().equals(PutAction.PAYCHECK)) {
-					t.addData(2, "");
-				}
-				else {
-					t.addData(2, data.getClient().getLabel());
-				}
-				t.addData(3, data.getReference());
-				t.addData(4, data.getAction().getLabel());
-			}
-			t.print();
+			datas = Data.getData();
 		}
+		else {
+			// create filter class
+		}
+		String[] h = {"Date", "Amount", "Client", "Description", "Action"};
+		Table t = new Table(h);
+		t.setMarginRight(1);
+		for (Data data : datas) {
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(data.getTimestamp());
+			
+			t.addData(0, (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH));
+			t.addData(1, "$" + data.getAmount());
+			if (data.getAction().equals(PutAction.PAYCHECK)) {
+				t.addData(2, "");
+			}
+			else {
+				t.addData(2, data.getClient().getLabel());
+			}
+			t.addData(3, data.getReference());
+			t.addData(4, data.getAction().getLabel());
+		}
+		t.print();
 	}
 
 }
