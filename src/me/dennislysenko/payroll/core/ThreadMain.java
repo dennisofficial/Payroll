@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import me.dennislysenko.payroll.api.Table;
 import me.dennislysenko.payroll.type.Client;
@@ -55,12 +56,14 @@ public class ThreadMain implements Runnable {
 		Integer paycheck = 0;
 		Integer monthaction = 0;
 		Integer monthlyrate = 0;
+		Integer monthlydivision = 0;
+		Integer monthearnings = 0;
 		
 		HashMap<Integer, Integer> monthlyhash = new HashMap<Integer, Integer>();
 		List<Data> datas = Data.getData();
 		for (Data data : datas) {
 			if (data.getAction().equals(PutAction.PAYCHECK)) {
-				paycheck -= data.getAmount();
+				//paycheck -= data.getAmount();
 			}
 			else {
 				paycheck += data.getAmount();
@@ -68,8 +71,13 @@ public class ThreadMain implements Runnable {
 				cal.setTimeInMillis(data.getTimestamp());
 				Integer timeid = new Integer(cal.get(Calendar.YEAR) + (cal.get(Calendar.MONTH) + 1));
 
-				monthlyhash.put(timeid, data.getAmount());
-				// FINISH CHECK IF TIMEID EXISTS
+				if (monthlyhash.containsKey(timeid)) {
+					Integer before = monthlyhash.get(timeid);
+					monthlyhash.replace(timeid, before, before + data.getAmount());
+				}
+				else {
+					monthlyhash.put(timeid, data.getAmount());
+				}
 				
 				// 1 variable are Current, and 2 variable are Data time stamp.
 				Calendar cal1 = Calendar.getInstance();
@@ -84,24 +92,31 @@ public class ThreadMain implements Runnable {
 				if (year1.toString().equals(year2.toString())) {
 					if (month1 == month2) {
 						monthaction++;
+						monthearnings += data.getAmount();
 					}
 				}
 			}
 		}
 		
-		// ADD MONTHLY CALCULATOR
+		for (Entry<Integer, Integer> entry : monthlyhash.entrySet()) {
+			monthlydivision++;
+			monthlyrate += entry.getValue();
+		}
+		
+		monthlyrate /= monthlydivision;
 		
 		Calendar cal = Calendar.getInstance();
 		Integer month = cal.get(Calendar.MONTH) + 1;
 		Integer day = cal.get(Calendar.DAY_OF_MONTH);
 		
-		String[] h = {"Date", "Pay Check", "Month Actions", "Monthly Rate"};
+		String[] h = {"Date", "Pay Check", "M. Actions", "M. Rate", "M. Earnings"};
 		Table t = new Table(h);
 		t.setMarginRight(1);
 		t.addData(0, month + "/" + day);
 		t.addData(1, "$" + paycheck);
 		t.addData(2, monthaction.toString());
 		t.addData(3, "$" + monthlyrate.toString());
+		t.addData(4, "$" + monthearnings.toString());
 		t.print();
 	}
 

@@ -165,14 +165,15 @@ public class CmdAction extends Command {
 			Boolean a = true;
 			
 			for (Data data : Data.getData()) {
+				Boolean add = true;
 				if (filters.containsKey("-d")) {
 					if (d) {
 						try {
 							Integer value = new Integer(filters.get("-d"));
 							Calendar cal = Calendar.getInstance();
 							cal.setTimeInMillis(System.currentTimeMillis() - ((86400L * 1000) * value));
-							if (data.getTimestamp() > cal.getTimeInMillis()) {
-								datas.add(data);
+							if (data.getTimestamp() < cal.getTimeInMillis()) {
+								add = false;
 							}
 						} catch (NumberFormatException ex) {
 							System.out.println("Please enter a number for \"-d\" filter.");
@@ -184,8 +185,8 @@ public class CmdAction extends Command {
 					if (!data.getAction().equals(PutAction.PAYCHECK)) {
 						Client client = Client.getClient(filters.get("-c"));
 						if (client != null && c) {
-							if (data.getClient().equals(client)) {
-								datas.add(data);
+							if (!data.getClient().equals(client)) {
+								add = false;
 							}
 						}
 						else {
@@ -193,18 +194,24 @@ public class CmdAction extends Command {
 							c = false;
 						}
 					}
+					else {
+						add = false;
+					}
 				}
 				if (filters.containsKey("-a")) {
 					PutAction action = PutAction.getAction(filters.get("-a"));
 					if (action != null && a) {
-						if (data.getAction().equals(action)) {
-							datas.add(data);
+						if (!data.getAction().equals(action)) {
+							add = false;
 						}
 					}
 					else {
 						System.out.println("Action does not exist in filter.");
 						a = false;
 					}
+				}
+				if (add) {
+					datas.add(data);
 				}
 			}
 		}
