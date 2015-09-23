@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import me.dennislysenko.payroll.api.Table;
@@ -139,7 +140,73 @@ public class CmdAction extends Command {
 			datas = Data.getData();
 		}
 		else {
-			// create filter class
+			// Filters:
+			// -d:days
+			// -c:client
+			// -a:action
+			
+			HashMap<String, String> filters = new HashMap<String, String>();
+			
+			// Register Filters
+			for (int i = 1; i < args.length; i++) {
+				String filter = args[i];
+				if (args[i].contains(":")) {
+					filters.put(filter.split(":")[0], filter.split(":")[1]);
+				}
+				else {
+					System.out.println("Syntax Error!");
+					return;
+				}
+			}
+
+			// Stops repeatable bug
+			Boolean d = true;
+			Boolean c = true;
+			Boolean a = true;
+			
+			for (Data data : Data.getData()) {
+				if (filters.containsKey("-d")) {
+					if (d) {
+						try {
+							Integer value = new Integer(filters.get("-d"));
+							Calendar cal = Calendar.getInstance();
+							cal.setTimeInMillis(System.currentTimeMillis() - ((86400L * 1000) * value));
+							if (data.getTimestamp() > cal.getTimeInMillis()) {
+								datas.add(data);
+							}
+						} catch (NumberFormatException ex) {
+							System.out.println("Please enter a number for \"-d\" filter.");
+							d = false;
+						}
+					}
+				}
+				if (filters.containsKey("-c")) {
+					if (!data.getAction().equals(PutAction.PAYCHECK)) {
+						Client client = Client.getClient(filters.get("-c"));
+						if (client != null && c) {
+							if (data.getClient().equals(client)) {
+								datas.add(data);
+							}
+						}
+						else {
+							System.out.println("Client does not exist in filter.");
+							c = false;
+						}
+					}
+				}
+				if (filters.containsKey("-a")) {
+					PutAction action = PutAction.getAction(filters.get("-a"));
+					if (action != null && a) {
+						if (data.getAction().equals(action)) {
+							datas.add(data);
+						}
+					}
+					else {
+						System.out.println("Action does not exist in filter.");
+						a = false;
+					}
+				}
+			}
 		}
 		String[] h = {"Date", "Amount", "Client", "Description", "Action"};
 		Table t = new Table(h);

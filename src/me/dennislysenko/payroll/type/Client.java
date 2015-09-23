@@ -36,6 +36,17 @@ public class Client {
 	public String[] getAlias() {
 		return ALIAS;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Client) {
+			Client client = (Client) obj;
+			if (client.getId().equals(getId())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	public static void loadClients() {
 		try {
