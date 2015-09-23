@@ -63,7 +63,7 @@ public class ThreadMain implements Runnable {
 		List<Data> datas = Data.getData();
 		for (Data data : datas) {
 			if (data.getAction().equals(PutAction.PAYCHECK)) {
-				//paycheck -= data.getAmount();
+				paycheck -= data.getAmount();
 			}
 			else {
 				paycheck += data.getAmount();
