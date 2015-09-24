@@ -73,7 +73,8 @@ public class ThreadMain implements Runnable {
 
 				if (monthlyhash.containsKey(timeid)) {
 					Integer before = monthlyhash.get(timeid);
-					monthlyhash.replace(timeid, before, before + data.getAmount());
+					monthlyhash.remove(timeid);
+					monthlyhash.put(timeid, before + data.getAmount());
 				}
 				else {
 					monthlyhash.put(timeid, data.getAmount());
