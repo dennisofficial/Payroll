@@ -31,7 +31,6 @@ public class ThreadMain implements Runnable {
 	private void setupFiles() {
 		// Make sure to go in order!
 		List<File> folders = new ArrayList<File>();
-		folders.add(Main.getDataFolder());
 		for (File folder : folders) {
 			if (!folder.exists()) {
 				folder.mkdir();
@@ -39,8 +38,8 @@ public class ThreadMain implements Runnable {
 		}
 		
 		List<File> files = new ArrayList<File>();
-		files.add(new File(Main.getDataFolder(), "clients.dat"));
-		files.add(new File(Main.getDataFolder(), "actions.dat"));
+		files.add(new File("clients.dat"));
+		files.add(new File("actions.dat"));
 		for (File file : files) {
 			if (!file.exists()) {
 				try {

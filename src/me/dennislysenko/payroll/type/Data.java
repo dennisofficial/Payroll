@@ -8,8 +8,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.dennislysenko.payroll.core.Main;
-
 public class Data {
 
 	Long TIMESTAMP;
@@ -18,7 +16,7 @@ public class Data {
 	PutAction ACTION;
 	Integer AMOUNT;
 
-	private static File data = new File(Main.getDataFolder(), "actions.dat");
+	private static File data = new File("actions.dat");
 
 	public static void addData(Client client, Integer amount, String reference, PutAction action) {
 		try {

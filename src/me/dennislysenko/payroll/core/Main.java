@@ -1,7 +1,5 @@
 package me.dennislysenko.payroll.core;
 
-import java.io.File;
-
 import me.dennislysenko.payroll.command.CmdClear;
 
 public class Main {
@@ -14,10 +12,6 @@ public class Main {
 		new CmdClear().execute(args);
 		new Thread(new ThreadMain()).start();
 		new Thread(new ThreadInput()).start();
-	}
-
-	public static File getDataFolder() {
-		return new File("PayRoll/");
 	}
 
 }

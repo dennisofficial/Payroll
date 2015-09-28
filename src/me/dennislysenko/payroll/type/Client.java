@@ -8,8 +8,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.dennislysenko.payroll.core.Main;
-
 public class Client {
 
 	private Integer ID;
@@ -17,7 +15,7 @@ public class Client {
 	private String[] ALIAS;
 
 	private static List<Client> clients = new ArrayList<Client>();
-	private static File data = new File(Main.getDataFolder(), "clients.dat");
+	private static File data = new File("clients.dat");
 
 	public Client(Integer id, String label, String[] alias) {
 		ID = id;
