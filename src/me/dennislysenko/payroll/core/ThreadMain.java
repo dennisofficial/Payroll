@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import me.dennislysenko.payroll.api.Table;
 import me.dennislysenko.payroll.type.Client;
 import me.dennislysenko.payroll.type.Command;
+import me.dennislysenko.payroll.type.Config;
 import me.dennislysenko.payroll.type.Data;
 import me.dennislysenko.payroll.type.PutAction;
 
@@ -19,6 +20,11 @@ public class ThreadMain implements Runnable {
 	@Override
 	public void run() {
 		setupFiles();
+		try {
+			Config.loadConfig();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		System.out.println(Main.TITLE + " v" + Main.VERSION);
 		
 		Command.registerCommands();
