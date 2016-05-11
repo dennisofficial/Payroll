@@ -4,38 +4,30 @@ import java.util.HashMap;
 
 public enum PutAction {
 
-	EMAIL("E-Mail"),
-	QB("QB"),
-	PAID("Paid"),
-	TASK("Task"),
-	PAYCHECK("PayCheck"),
-	TAXES("Taxes");
+	EMAIL("E-Mail", 2),
+	QB("QB", 2),
+	PAID("Paid", 1),
+	TASK("Task", 0),
+	PAYCHECK("PayCheck", 0),
+	TAXES("Taxes", 5);
 	
-	private static HashMap<Integer, PutAction> actions = new HashMap<Integer, PutAction>();
-	
-	public static void setupActions() {
-		actions.put(0, EMAIL);
-		actions.put(1, QB);
-		actions.put(2, PAID);
-		actions.put(3, TASK);
-		actions.put(4, PAYCHECK);
-	}
-
 	public Integer ID;
 	public String LABEL;
+	public Integer VALUE;
 	
-	PutAction(String label) {
+	PutAction(String label, Integer value) {
 		ID = this.ordinal();
 		LABEL = label;
+		VALUE = value;
 	}
 	
 	public static PutAction getAction(Integer id) {
-		return actions.get(id);
+		return values()[id];
 	}
 	
 	public static PutAction getAction(String action) {
 		PutAction output = null;
-		for (PutAction action1 : actions.values()) {
+		for (PutAction action1 : values()) {
 			if (action1.LABEL.equalsIgnoreCase(action)) {
 				output = action1;
 			}
