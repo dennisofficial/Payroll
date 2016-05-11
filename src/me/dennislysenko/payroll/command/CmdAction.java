@@ -101,6 +101,7 @@ public class CmdAction extends Command {
 					else if (action.equalsIgnoreCase(PutAction.TAXES.LABEL)) {
 						reference = Calendar.getInstance().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
 						actionId = PutAction.QB.ID;
+						break;
 					}
 					else {
 						System.out.println("Action not found!");
@@ -108,14 +109,13 @@ public class CmdAction extends Command {
 				}
 				while (true) {
 					try {
+						if (PutAction.getAction(actionId).VALUE != 0) {
+							break;
+						}
+						
 						System.out.print("Action Rate: ");
 						String temp = reader.readLine();
-						if (temp.isEmpty()) {
-							amount = 3;
-						}
-						else {
-							amount = new Integer(temp);
-						}
+						amount = new Integer(temp);
 						break;
 					} catch (NumberFormatException ex) {
 						System.out.println("Please enter a number!");
