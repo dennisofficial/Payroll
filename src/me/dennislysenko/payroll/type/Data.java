@@ -33,7 +33,7 @@ public class Data {
 			for (String line2 : lines) {
 				writer.println(line2);
 			}
-			writer.println(System.currentTimeMillis() + ":" + amount + ":" + client.getId() + ":" + reference + ":" + action.getID());
+			writer.println(System.currentTimeMillis() + ":" + amount + ":" + client.getId() + ":" + reference + ":" + action.ID);
 			writer.close();
 		} catch (IOException ex) {
 			ex.printStackTrace();

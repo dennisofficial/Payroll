@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import me.dennislysenko.payroll.api.Table;
 import me.dennislysenko.payroll.core.ThreadInput;
@@ -73,29 +74,33 @@ public class CmdAction extends Command {
 				while (true) {
 					System.out.print("Action: ");
 					action = reader.readLine();
-					if (action.equalsIgnoreCase(PutAction.EMAIL.getLabel())) {
+					if (action.equalsIgnoreCase(PutAction.EMAIL.LABEL)) {
 						System.out.print("Subject: ");
 						reference = reader.readLine();
-						actionId = PutAction.EMAIL.getID();
+						actionId = PutAction.EMAIL.ID;
 						break;
 					}
-					else if (action.equalsIgnoreCase(PutAction.PAID.getLabel())) {
+					else if (action.equalsIgnoreCase(PutAction.PAID.LABEL)) {
 						System.out.print("Invoice: ");
 						reference = reader.readLine().toUpperCase();
-						actionId = PutAction.PAID.getID();
+						actionId = PutAction.PAID.ID;
 						break;
 					}
-					else if (action.equalsIgnoreCase(PutAction.TASK.getLabel())) {
+					else if (action.equalsIgnoreCase(PutAction.TASK.LABEL)) {
 						System.out.print("Task: ");
 						reference = reader.readLine();
-						actionId = PutAction.TASK.getID();
+						actionId = PutAction.TASK.ID;
 						break;
 					}
-					else if (action.equalsIgnoreCase(PutAction.QB.getLabel())) {
+					else if (action.equalsIgnoreCase(PutAction.QB.LABEL)) {
 						System.out.print("IN/PL: ");
 						reference = reader.readLine().toUpperCase();
-						actionId = PutAction.QB.getID();
+						actionId = PutAction.QB.ID;
 						break;
+					}
+					else if (action.equalsIgnoreCase(PutAction.TAXES.LABEL)) {
+						reference = Calendar.getInstance().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH);
+						actionId = PutAction.QB.ID;
 					}
 					else {
 						System.out.println("Action not found!");
@@ -122,7 +127,7 @@ public class CmdAction extends Command {
 				t.addData(0, (cal.get(Calendar.MONTH) + 1) + "/" + cal.get(Calendar.DAY_OF_MONTH));
 				t.addData(1, client.getLabel());
 				t.addData(2, reference);
-				t.addData(3, PutAction.getAction(actionId).getLabel());
+				t.addData(3, PutAction.getAction(actionId).LABEL);
 				t.addData(4, amount.toString());
 				t.setMarginRight(1);
 				t.print();
@@ -232,7 +237,7 @@ public class CmdAction extends Command {
 				t.addData(2, data.getClient().getLabel());
 			}
 			t.addData(3, data.getReference());
-			t.addData(4, data.getAction().getLabel());
+			t.addData(4, data.getAction().LABEL);
 		}
 		t.print();
 	}

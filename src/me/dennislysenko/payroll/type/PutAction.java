@@ -2,16 +2,17 @@ package me.dennislysenko.payroll.type;
 
 import java.util.HashMap;
 
-public class PutAction {
+public enum PutAction {
 
+	EMAIL("E-Mail"),
+	QB("QB"),
+	PAID("Paid"),
+	TASK("Task"),
+	PAYCHECK("PayCheck"),
+	TAXES("Taxes");
+	
 	private static HashMap<Integer, PutAction> actions = new HashMap<Integer, PutAction>();
 	
-	public static final PutAction EMAIL = new PutAction(0, "E-Mail");
-	public static final PutAction QB = new PutAction(1, "QB");
-	public static final PutAction PAID = new PutAction(2, "Paid");
-	public static final PutAction TASK = new PutAction(3, "Task");
-	public static final PutAction PAYCHECK = new PutAction(4, "PayCheck");
-
 	public static void setupActions() {
 		actions.put(0, EMAIL);
 		actions.put(1, QB);
@@ -23,17 +24,9 @@ public class PutAction {
 	public Integer ID;
 	public String LABEL;
 	
-	public PutAction(Integer id, String label) {
-		ID = id;
+	PutAction(String label) {
+		ID = this.ordinal();
 		LABEL = label;
-	}
-	
-	public String getLabel() {
-		return LABEL;
-	}
-	
-	public Integer getID() {
-		return ID;
 	}
 	
 	public static PutAction getAction(Integer id) {
@@ -43,7 +36,7 @@ public class PutAction {
 	public static PutAction getAction(String action) {
 		PutAction output = null;
 		for (PutAction action1 : actions.values()) {
-			if (action1.getLabel().equalsIgnoreCase(action)) {
+			if (action1.LABEL.equalsIgnoreCase(action)) {
 				output = action1;
 			}
 		}
