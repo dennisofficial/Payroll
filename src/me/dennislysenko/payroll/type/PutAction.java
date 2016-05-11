@@ -1,7 +1,5 @@
 package me.dennislysenko.payroll.type;
 
-import java.util.HashMap;
-
 public enum PutAction {
 
 	EMAIL("E-Mail", 2),
