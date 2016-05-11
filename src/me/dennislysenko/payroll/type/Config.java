@@ -16,6 +16,9 @@ public class Config {
 	public static final Key KEY_PAID_RATE = new Key("paid-rate");
 	
 	public static void loadConfig() throws Exception {
+		if (!file.exists()) {
+			file.createNewFile();
+		}
 		BufferedReader reader = new BufferedReader(new FileReader(file));
 		String line;
 		while ((line = reader.readLine()) != null) {

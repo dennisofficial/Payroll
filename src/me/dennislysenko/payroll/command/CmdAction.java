@@ -64,9 +64,10 @@ public class CmdAction extends Command {
 
 			while (true) {
 				System.out.print("Client: ");
-				client = Client.getClient(reader.readLine());
+				String input = reader.readLine();
+				client = Client.getClient(input);
 				if (client == null) {
-					System.out.println(client + " does not exist! Type: /client");
+					System.out.println(input + " does not exist! Type: /client");
 					break;
 				}
 				while (true) {

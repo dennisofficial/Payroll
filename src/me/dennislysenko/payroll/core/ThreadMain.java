@@ -58,7 +58,7 @@ public class ThreadMain implements Runnable {
 	}
 	
 	private void printMOTD() {
-		Integer paycheck = 0;
+		Integer paycheck = -2300;
 		Integer monthaction = 0;
 		Integer monthlyrate = 0;
 		Integer monthlydivision = 0;
@@ -108,15 +108,16 @@ public class ThreadMain implements Runnable {
 			monthlydivision++;
 			monthlyrate += entry.getValue();
 		}
-		
-		monthlyrate /= monthlydivision;
+
+		try {
+			monthlyrate /= monthlydivision;
+		} catch (ArithmeticException ex) {}
 		
 		Calendar cal = Calendar.getInstance();
 		Integer month = cal.get(Calendar.MONTH) + 1;
 		Integer day = cal.get(Calendar.DAY_OF_MONTH);
 		
-		String[] h = {"Date", "Pay Check", "M. Actions", "M. Rate", "M. Earnings"};
-		Table t = new Table(h);
+		Table t = new Table(new String[] {"Date", "Debt", "M. Actions", "M. Rate", "M. Earnings"});
 		t.setMarginRight(1);
 		t.addData(0, month + "/" + day);
 		t.addData(1, "$" + paycheck);
